@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import Layout from './Layout'
+import Layout from './../Layout'
 
 const About = () => {
   let history = useHistory()

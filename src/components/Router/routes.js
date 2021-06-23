@@ -1,5 +1,5 @@
-import Home from './../Home'
-import About from './../About'
+import Home from './../Pages/Home'
+import About from './../Pages/About'
 
 export const routes = [
   {
