@@ -11,7 +11,6 @@ const About = () => {
   return (
     <Layout>
       <h2>About</h2>
-      <button onClick={handleClickHome}>Home</button>
     </Layout>
   )
 }

@@ -1,16 +1,22 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import { routes } from './routes'
+
+import { ConnectedRouter } from 'connected-react-router'
+import { history } from './../../redux/configureStore'
+
+import ScrollTop from './../ScrollTop'
 
 function Router() {
   return (
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <Switch>
         {routes.map((route, index) => (
           <Route key={index} exact path={route.path} component={route.component} />
         ))}
       </Switch>
-    </BrowserRouter>
+      <ScrollTop />
+    </ConnectedRouter>
   )
 }
 
