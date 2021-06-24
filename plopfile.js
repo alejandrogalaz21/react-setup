@@ -23,21 +23,21 @@ const config = plop => {
         skipIfExists: true
       },
       // Append api controller
-      {
-        // Action type 'append' injects a template into an existing file
-        type: 'append',
-        path: 'api/app/routes.js',
-        // Pattern tells plop where in the file to inject the template
-        pattern: `/* PLOP_INJECT_IMPORT */`,
-        template: `import { {{camelCase name}}s } from './{{camelCase name}}s/{{camelCase name}}s.controller.js'`
-      },
+      // {
+      //   // Action type 'append' injects a template into an existing file
+      //   type: 'append',
+      //   path: 'api/app/routes.js',
+      //   // Pattern tells plop where in the file to inject the template
+      //   pattern: `/* PLOP_INJECT_IMPORT */`,
+      //   template: `import { {{camelCase name}}s } from './{{camelCase name}}s/{{camelCase name}}s.controller.js'`
+      // },
       // Append api name controller in to the array
-      {
-        type: 'append',
-        path: 'api/app/routes.js',
-        pattern: `/* PLOP_INJECT_EXPORT */`,
-        template: `\t{{camelCase name}}s,`
-      },
+      // {
+      //   type: 'append',
+      //   path: 'api/app/routes.js',
+      //   pattern: `/* PLOP_INJECT_EXPORT */`,
+      //   template: `\t{{camelCase name}}s,`
+      // },
 
       // Add Redux
       {
