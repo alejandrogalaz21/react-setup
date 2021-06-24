@@ -1,0 +1,74 @@
+import {{titleCase name}} from './{{camelCase name}}'
+import { Router } from 'express'
+import { green, blue } from './../../helpers/chalk.helper'
+import { ErrorHandler } from '../../helpers/error.helper'
+
+export function {{camelCase name}}sController({{camelCase name}}) {
+  const router = new Router()
+
+  router.post('/', create)
+  router.get('/', getAll)
+  router.get('/:_id', getOne)
+  router.put('/:_id', update)
+  router.delete('/:_id', remove)
+
+  async function create(req, res, next) {
+    try {
+      blue('{{camelCase name}}s > controller > create')
+      const newEntry = req.body
+      const result = await {{camelCase name}}.create(newEntry)
+      return res.send(result)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async function getAll(req, res, next) {
+    try {
+      blue('{{camelCase name}}s > controller > getAll')
+      const query = req.query || {}
+      const result = await {{camelCase name}}.find(query).sort({updatedAt: -1})
+      return res.send(result)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async function getOne(req, res, next) {
+    try {
+      blue('{{camelCase name}}s > controller > getOne')
+      const { _id } = req.params
+      const result = await {{camelCase name}}.findById(_id)
+      return res.send(result)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async function update(req, res, next) {
+    try {
+      blue('{{camelCase name}}s > controller > update')
+      const changedEntry = req.body
+      const { _id } = req.params
+      const result = await {{camelCase name}}.update({ _id }, changedEntry)
+      return res.send(result)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async function remove(req, res, next) {
+    try {
+      blue('{{camelCase name}}s > controller > remove')
+      const { _id } = req.params
+      const result = await {{camelCase name}}.remove(_id)
+      return res.send(result)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  return router
+}
+
+export const {{camelCase name}}s = new Router().use('/{{camelCase name}}s', {{camelCase name}}sController({{titleCase name}}))
