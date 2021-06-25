@@ -1,107 +1,56 @@
-// Type's
-export const {{constantCase name}}_CREATE_REQUEST = '{{constantCase name}}_CREATE_REQUEST'
-export const {{constantCase name}}_CREATE_SUCCESS = '{{constantCase name}}_CREATE_SUCCESS'
-export const {{constantCase name}}_CREATE_FAILURE = '{{constantCase name}}_CREATE_FAILURE'
+import { createActions, createReducer } from 'reduxsauce'
+import * as handlers from './../../redux/helpers/handlers'
 
-export const {{constantCase name}}_GET_ALL_REQUEST = '{{constantCase name}}_GET_ALL_REQUEST'
-export const {{constantCase name}}_GET_ALL_SUCCESS = '{{constantCase name}}_GET_ALL_SUCCESS'
-export const {{constantCase name}}_GET_ALL_FAILURE = '{{constantCase name}}_GET_ALL_FAILURE'
+const { Types, Creators } = createActions(
+{
+  getAll{{pascalCase name}}Request: ['payload'],
+  getAll{{pascalCase name}}Success: ['payload'],
+  getAll{{pascalCase name}}Failure: ['payload'],
 
-export const {{constantCase name}}_GET_ONE_REQUEST = '{{constantCase name}}_GET_ONE_REQUEST'
-export const {{constantCase name}}_GET_ONE_SUCCESS = '{{constantCase name}}_GET_ONE_SUCCESS'
-export const {{constantCase name}}_GET_ONE_FAILURE = '{{constantCase name}}_GET_ONE_FAILURE'
+  getOne{{pascalCase name}}Request: ['payload'],
+  getOne{{pascalCase name}}Success: ['payload'],
+  getOne{{pascalCase name}}Failure: ['payload'],
 
-export const {{constantCase name}}_UPDATE_REQUEST = '{{constantCase name}}_UPDATE_REQUEST'
-export const {{constantCase name}}_UPDATE_SUCCESS = '{{constantCase name}}_UPDATE_SUCCESS'
-export const {{constantCase name}}_UPDATE_FAILURE = '{{constantCase name}}_UPDATE_FAILURE'
+  create{{pascalCase name}}Request: ['payload'],
+  create{{pascalCase name}}Success: ['payload'],
+  create{{pascalCase name}}Failure: ['payload'],
 
-export const {{constantCase name}}_REMOVE_REQUEST = '{{constantCase name}}_REMOVE_REQUEST'
-export const {{constantCase name}}_REMOVE_SUCCESS = '{{constantCase name}}_REMOVE_SUCCESS'
-export const {{constantCase name}}_REMOVE_FAILURE = '{{constantCase name}}_REMOVE_FAILURE'
+  edit{{pascalCase name}}Request: ['payload'],
+  edit{{pascalCase name}}Success: ['payload'],
+  edit{{pascalCase name}}Failure: ['payload'],
 
-// Action's
-export const {{camelCase name}}CreateRequest = payload => ({
-  type: {{constantCase name}}_CREATE_REQUEST,
-  payload
-})
-export const {{camelCase name}}CreateSuccess = payload => ({ type: {{constantCase name}}_CREATE_SUCCESS, payload })
-export const {{camelCase name}}CreateFailure = (payload = null) => ({
-  type: {{constantCase name}}_CREATE_FAILURE,
-  payload
-})
+  update{{pascalCase name}}Request: ['payload'],
+  update{{pascalCase name}}Success: ['payload'],
+  update{{pascalCase name}}Failure: ['payload'],
 
-export const {{camelCase name}}GetAllRequest = payload => ({
-  type: {{constantCase name}}_GET_ALL_REQUEST,
-  payload
-})
-export const {{camelCase name}}GetAllSuccess = payload => ({
-  type: {{constantCase name}}_GET_ALL_SUCCESS,
-  payload
-})
-export const {{camelCase name}}GetAllFailure = (payload = null) => ({
-  type: {{constantCase name}}_GET_ALL_FAILURE,
-  payload
-})
+  toggle{{pascalCase name}}Request: ['payload'],
+  toggle{{pascalCase name}}Success: ['payload'],
+  toggle{{pascalCase name}}Failure: ['payload'],
 
-export const {{camelCase name}}GetOneRequest = payload => ({
-  type: {{constantCase name}}_GET_ONE_REQUEST,
-  payload
-})
-export const {{camelCase name}}GetOneSuccess = payload => ({ type: {{constantCase name}}_GET_ONE_SUCCESS, payload })
-export const {{camelCase name}}GetOneFailure = (payload = null) => ({
-  type: {{constantCase name}}_GET_ONE_FAILURE,
-  payload
-})
+  delete{{pascalCase name}}Request: ['payload'],
+  delete{{pascalCase name}}Success: ['payload'],
+  delete{{pascalCase name}}Failure: ['payload']
+},
+{}
+)
 
-export const {{camelCase name}}UpdateRequest = payload => ({
-  type: {{constantCase name}}_UPDATE_REQUEST,
-  payload
-})
-export const {{camelCase name}}UpdateSuccess = payload => ({ type: {{constantCase name}}_UPDATE_SUCCESS, payload })
-export const {{camelCase name}}UpdateFailure = (payload = null) => ({
-  type: {{constantCase name}}_UPDATE_FAILURE,
-  payload
-})
-
-export const {{camelCase name}}RemoveRequest = payload => ({
-  type: {{constantCase name}}_REMOVE_REQUEST,
-  payload
-})
-export const {{camelCase name}}RemoveSuccess = payload => ({ type: {{constantCase name}}_REMOVE_SUCCESS, payload })
-export const {{camelCase name}}RemoveFailure = (payload = null) => ({
-  type: {{constantCase name}}_REMOVE_FAILURE,
-  payload
-})
-
-// Reducer
-const INITIAL_STATE = {
-  one: {},
-  all: []
+const initialState = {
+  list: [],
+  view: {},
+  edit: {},
+  loading: {}
 }
 
-export function {{camelCase name}}s(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case {{constantCase name}}_CREATE_SUCCESS:
-      return { ...state, many: [...state.many, action.payload] }
-    case {{constantCase name}}_GET_ALL_SUCCESS:
-      return { ...state, many: [...action.payload] }
-    case {{constantCase name}}_GET_ONE_SUCCESS:
-      return { ...state, one: { ...action.payload } }
-    case {{constantCase name}}_UPDATE_SUCCESS:
-      return {
-        ...state,
-        many: [...state.many.filter(s => s.id !== action.payload.id), action.payload]
-      }
-    case {{constantCase name}}_REMOVE_SUCCESS:
-      return { ...state, many: [...state.many.filter(s => s.id !== action.payload.id)] }
-    case {{constantCase name}}_CREATE_FAILURE:
-    case {{constantCase name}}_GET_ALL_FAILURE:
-    case {{constantCase name}}_GET_ONE_FAILURE:
-    case {{constantCase name}}_UPDATE_FAILURE:
-    case {{constantCase name}}_REMOVE_FAILURE:
-      alert(action.payload)
-      return state
-    default:
-      return state
-  }
+export const HANDLERS = {
+  [Types.{{constantCase name}}_GET_ALL_SUCCESS]: handlers.getAllSuccess,
+  [Types.{{constantCase name}}_GET_ONE_SUCCESS]: handlers.getOneSuccess,
+  [Types.{{constantCase name}}_CREATE_SUCCESS]: handlers.createSuccess,
+  [Types.{{constantCase name}}_EDIT_SUCCESS]: handlers.editSuccess,
+  [Types.{{constantCase name}}_UPDATE_SUCCESS]: handlers.updateSuccess,
+  [Types.{{constantCase name}}_TOGGLE_SUCCESS]: handlers.toggleSuccess,
+  [Types.{{constantCase name}}_DELETE_SUCCESS]: handlers.deleteSuccess
 }
+
+export const {{camelCase name}}Types = Types
+export const {{camelCase name}}Actions = Creators
+export const {{camelCase name}} = createReducer(initialState, HANDLERS)

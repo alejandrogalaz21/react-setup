@@ -22,38 +22,20 @@ const config = plop => {
         templateFile: 'plop/plop-templates/model.hbs',
         skipIfExists: true
       },
-      // Append api controller
-      // {
-      //   // Action type 'append' injects a template into an existing file
-      //   type: 'append',
-      //   path: 'api/app/routes.js',
-      //   // Pattern tells plop where in the file to inject the template
-      //   pattern: `/* PLOP_INJECT_IMPORT */`,
-      //   template: `import { {{camelCase name}}s } from './{{camelCase name}}s/{{camelCase name}}s.controller.js'`
-      // },
-      // Append api name controller in to the array
-      // {
-      //   type: 'append',
-      //   path: 'api/app/routes.js',
-      //   pattern: `/* PLOP_INJECT_EXPORT */`,
-      //   template: `\t{{camelCase name}}s,`
-      // },
 
       // Add Redux
       {
         type: 'add',
-        path: 'client/src/components/{{pascalCase name}}/{{camelCase name}}.redux.js',
+        path: 'src/components/{{pascalCase name}}/{{camelCase name}}.redux.js',
         templateFile: 'plop/plop-templates/redux.hbs',
         skipIfExists: true
       },
       // Append Reducer
       {
-        // Action type 'append' injects a template into an existing file
         type: 'append',
         path: 'src/redux/reducers/index.js',
-        // Pattern tells plop where in the file to inject the template
-        pattern: `/* PLOP_INJECT_IMPORT */`,
-        template: `import { {{camelCase name}}s } from './../../components/{{pascalCase name}}/{{camelCase name}}.redux'`
+        pattern: `/* PLOP_INJECT_EXPORT */`,
+        template: `import { {{camelCase name}} } from './../../components/{{pascalCase name}}/{{camelCase name}}.redux'`
       },
       {
         type: 'append',
@@ -64,7 +46,7 @@ const config = plop => {
       // Add Saga
       {
         type: 'add',
-        path: 'client/src/components/{{pascalCase name}}/{{camelCase name}}.saga.js',
+        path: 'src/components/{{pascalCase name}}/{{camelCase name}}.saga.js',
         templateFile: 'plop/plop-templates/saga.hbs',
         skipIfExists: true
       },
@@ -73,7 +55,7 @@ const config = plop => {
         type: 'append',
         path: 'src/redux/sagas/index.js',
         pattern: `/* PLOP_INJECT_EXPORT */`,
-        template: `export { {{camelCase name}}sSagas } from './../../components/{{pascalCase name}}/{{camelCase name}}.saga'`
+        template: `export { {{camelCase name}}Sagas } from './../../components/{{pascalCase name}}/{{camelCase name}}.saga'`
       }
     ]
   })

@@ -1,9 +1,9 @@
-import Test from './test'
+import Product from './product'
 import { Router } from 'express'
 import { green, blue } from './../../helpers/chalk.helper'
 import { ErrorHandler } from '../../helpers/error.helper'
 
-export function testsController(test) {
+export function productsController(product) {
   const router = new Router()
 
   router.post('/', create)
@@ -14,9 +14,9 @@ export function testsController(test) {
 
   async function create(req, res, next) {
     try {
-      blue('tests > controller > create')
+      blue('products > controller > create')
       const newEntry = req.body
-      const result = await test.create(newEntry)
+      const result = await product.create(newEntry)
       return res.send(result)
     } catch (error) {
       next(error)
@@ -25,9 +25,9 @@ export function testsController(test) {
 
   async function getAll(req, res, next) {
     try {
-      blue('tests > controller > getAll')
+      blue('products > controller > getAll')
       const query = req.query || {}
-      const result = await test.find(query).sort({updatedAt: -1})
+      const result = await product.find(query).sort({updatedAt: -1})
       return res.send(result)
     } catch (error) {
       next(error)
@@ -36,9 +36,9 @@ export function testsController(test) {
 
   async function getOne(req, res, next) {
     try {
-      blue('tests > controller > getOne')
+      blue('products > controller > getOne')
       const { _id } = req.params
-      const result = await test.findById(_id)
+      const result = await product.findById(_id)
       return res.send(result)
     } catch (error) {
       next(error)
@@ -47,10 +47,10 @@ export function testsController(test) {
 
   async function update(req, res, next) {
     try {
-      blue('tests > controller > update')
+      blue('products > controller > update')
       const changedEntry = req.body
       const { _id } = req.params
-      const result = await test.update({ _id }, changedEntry)
+      const result = await product.update({ _id }, changedEntry)
       return res.send(result)
     } catch (error) {
       next(error)
@@ -59,9 +59,9 @@ export function testsController(test) {
 
   async function remove(req, res, next) {
     try {
-      blue('tests > controller > remove')
+      blue('products > controller > remove')
       const { _id } = req.params
-      const result = await test.remove(_id)
+      const result = await product.remove(_id)
       return res.send(result)
     } catch (error) {
       next(error)
@@ -71,4 +71,4 @@ export function testsController(test) {
   return router
 }
 
-export const tests = new Router().use('/tests', testsController(Test))
+export const products = new Router().use('/products', productsController(Product))

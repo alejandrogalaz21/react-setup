@@ -1,0 +1,13 @@
+import {{pascalCase name}}Create from './{{pascalCase name}}Create'
+import {{pascalCase name}}List from './{{pascalCase name}}List'
+import {{pascalCase name}}Edit from './{{pascalCase name}}Edit'
+import {{pascalCase name}}View from './{{pascalCase name}}View'
+
+const routes = [
+  { path: '/dashboard/{{camelCase name}}/list', component: {{pascalCase name}}List },
+  { path: '/dashboard/{{camelCase name}}/create', component: {{pascalCase name}}Create },
+  { path: '/dashboard/{{camelCase name}}/edit/:id', component: {{pascalCase name}}Edit },
+  { path: '/dashboard/{{camelCase name}}/view/:id', component: {{pascalCase name}}View }
+]
+
+export default routes

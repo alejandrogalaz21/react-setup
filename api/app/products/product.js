@@ -33,9 +33,9 @@ const schema = new Schema(
 
 // check if is unique
 schema.path('name').validate(async value => {
-  if (await mongoose.models.test.exists({ name: value })) {
+  if (await mongoose.models.product.exists({ name: value })) {
     throw new Error('ya existe')
   }
 })
 
-export default mongoose.model('test', schema)
+export default mongoose.model('product', schema)
