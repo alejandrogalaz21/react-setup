@@ -1,0 +1,56 @@
+import { createActions, createReducer } from 'reduxsauce'
+import * as handlers from './../../redux/helpers/handlers'
+
+const { Types, Creators } = createActions(
+{
+  getAll{{pascalCase name}}Request: ['payload'],
+  getAll{{pascalCase name}}Success: ['payload'],
+  getAll{{pascalCase name}}Failure: ['payload'],
+
+  getOne{{pascalCase name}}Request: ['payload'],
+  getOne{{pascalCase name}}Success: ['payload'],
+  getOne{{pascalCase name}}Failure: ['payload'],
+
+  create{{pascalCase name}}Request: ['payload'],
+  create{{pascalCase name}}Success: ['payload'],
+  create{{pascalCase name}}Failure: ['payload'],
+
+  edit{{pascalCase name}}Request: ['payload'],
+  edit{{pascalCase name}}Success: ['payload'],
+  edit{{pascalCase name}}Failure: ['payload'],
+
+  update{{pascalCase name}}Request: ['payload'],
+  update{{pascalCase name}}Success: ['payload'],
+  update{{pascalCase name}}Failure: ['payload'],
+
+  toggle{{pascalCase name}}Request: ['payload'],
+  toggle{{pascalCase name}}Success: ['payload'],
+  toggle{{pascalCase name}}Failure: ['payload'],
+
+  delete{{pascalCase name}}Request: ['payload'],
+  delete{{pascalCase name}}Success: ['payload'],
+  delete{{pascalCase name}}Failure: ['payload']
+},
+{}
+)
+
+const initialState = {
+  list: [],
+  view: {},
+  edit: {},
+  loading: {}
+}
+
+export const HANDLERS = {
+  [Types.{{constantCase name}}_GET_ALL_SUCCESS]: handlers.getAllSuccess,
+  [Types.{{constantCase name}}_GET_ONE_SUCCESS]: handlers.getOneSuccess,
+  [Types.{{constantCase name}}_CREATE_SUCCESS]: handlers.createSuccess,
+  [Types.{{constantCase name}}_EDIT_SUCCESS]: handlers.editSuccess,
+  [Types.{{constantCase name}}_UPDATE_SUCCESS]: handlers.updateSuccess,
+  [Types.{{constantCase name}}_TOGGLE_SUCCESS]: handlers.toggleSuccess,
+  [Types.{{constantCase name}}_DELETE_SUCCESS]: handlers.deleteSuccess
+}
+
+export const {{camelCase name}}Types = Types
+export const {{camelCase name}}Actions = Creators
+export const {{camelCase name}} = createReducer(initialState, HANDLERS)

@@ -1,0 +1,124 @@
+import axios from 'axios'
+import { push } from 'connected-react-router'
+import { all, takeLatest, call, put, take } from 'redux-saga/effects'
+import { alertActions, alertTypes } from '././../Alert/alert.redux'
+import { {{camelCase name}}Actions, {{camelCase name}}Types } from './{{camelCase name}}.redux'
+import { isEmpty } from './../../util/crud'
+
+export function* getAll{{pascalCase name}}() {
+  try {
+    const url = '/api/{{camelCase name}}/'
+    const { data: {{camelCase name}} } = yield call(axios.get, url)
+    if (isEmpty({{camelCase name}})) {
+      yield put(alertActions.alertMessageEmpty('{{camelCase name}}', '/dashboard/{{camelCase name}}/create'))
+    }
+    yield put({{camelCase name}}Actions.getAll{{pascalCase name}}Success({{camelCase name}}))
+  } catch (error) {
+    yield put({{camelCase name}}Actions.getAll{{pascalCase name}}Failure(error))
+    console.log(error)
+  }
+}
+
+export function* getOne{{pascalCase name}}({ payload } = {}) {
+  try {
+    const { id } = payload
+    const url = `/api/{{camelCase name}}/${id}`
+    const { data: {{camelCase name}} } = yield call(axios.get, url)
+    yield put({{camelCase name}}Actions.getOne{{pascalCase name}}Success({{camelCase name}}))
+  } catch (error) {
+    yield put({{camelCase name}}Actions.getOne{{pascalCase name}}Failure(error))
+    console.log(error)
+  }
+
+export function* create{{pascalCase name}}({ payload }) {
+  try {
+    const url = '/api/{{camelCase name}}/'
+    // Make the POST request
+    const { data } = yield call(axios.post, url, payload)
+    // Add new document to the list
+    yield put({{camelCase name}}Actions.create{{pascalCase name}}Success(data))
+    // Show notification
+    yield put(alertActions.alertMessageSuccess('Registro guardado'))
+    // Return the user to the list
+    yield put(push('/dashboard/{{camelCase name}}/list'))
+  } catch (error) {
+    yield put({{camelCase name}}Actions.create{{pascalCase name}}Failure(error))
+    console.log(error)
+  }
+}
+
+export function* edit{{pascalCase name}}({ payload } = {}) {
+try {
+    const { id } = payload
+    const url = `/api/{{camelCase name}}/${id}`
+    const { data: {{camelCase name}} } = yield call(axios.get, url)
+    yield put({{camelCase name}}Actions.edit{{pascalCase name}}Success({{camelCase name}}))
+  } catch (error) {
+    yield put({{camelCase name}}Actions.edit{{pascalCase name}}Failure(error))
+    console.log(error)
+  }
+}
+
+export function* update{{pascalCase name}}({ payload }) {
+  try {
+    yield put(alertActions.alertPromptShow())
+    const prompt = yield take(alertTypes.ALERT_PROMPT_HIDE)
+
+    if (isEmpty(prompt.payload)) return
+
+    const { id, values } = payload
+    const url = `/api/{{camelCase name}}/${id}`
+
+    const historical = { cause: 'Actualización', description: prompt.payload }
+    const data = { payload: values, historical }
+    const { data: updated{{pascalCase name}} } = yield call(axios.put, url, data)
+    yield put({{camelCase name}}Actions.update{{pascalCase name}}Success(updated{{pascalCase name}}))
+    // Success notification and return the user to the list
+    yield put(alertActions.alertMessageSuccess('Registro actualizado'))
+    yield put(push('/dashboard/{{camelCase name}}/list'))
+  } catch (error) {
+    yield put({{camelCase name}}Actions.update{{pascalCase name}}Failure(error))
+    console.log(error)
+  }
+}
+
+export function* toggle{{pascalCase name}}({ payload }) {
+  try {
+    yield put(alertActions.alertPromptShow())
+    const prompt = yield take(alertTypes.ALERT_PROMPT_HIDE)
+    const description = prompt.payload
+
+    // The prompt was closed, stop the flow
+    if (isEmpty(description)) return
+
+    const { _id, active } = payload
+    const url = `/api/{{camelCase name}}/${_id}`
+
+    // Make the PUT request
+    const historical = { cause: active ? 'Desactivación' : 'Activación', description }
+    const { data: updated{{pascalCase name}} } = yield call(axios.put, url, {
+      payload: { active: !active },
+      historical
+    })
+    yield put({{camelCase name}}Actions.toggle{{pascalCase name}}Success(updated{{pascalCase name}}))
+
+    // Show success notification
+    const result = updated{{pascalCase name}}.active ? 'activado' : 'desactivado'
+    yield put(alertActions.alertMessageSuccess(`Registro ${result}`))
+    yield put(push('/dashboard/{{camelCase name}}/list'))
+  } catch (error) {
+    yield put({{camelCase name}}Actions.toggle{{pascalCase name}}Failure(error))
+    console.log(error)
+  }
+}
+
+export function* {{camelCase name}}Sagas() {
+  yield all([
+    takeLatest({{camelCase name}}Types.{{constantCase name}}_GET_ALL_REQUEST, getAll{{pascalCase name}}),
+    takeLatest({{camelCase name}}Types.{{constantCase name}}_GET_ONE_REQUEST, getOne{{pascalCase name}}),
+    takeLatest({{camelCase name}}Types.{{constantCase name}}_CREATE_REQUEST, create{{pascalCase name}}),
+    takeLatest({{camelCase name}}Types.{{constantCase name}}_EDIT_REQUEST, edit{{pascalCase name}}),
+    takeLatest({{camelCase name}}Types.{{constantCase name}}_UPDATE_REQUEST, update{{pascalCase name}}),
+    takeLatest({{camelCase name}}Types.{{constantCase name}}_TOGGLE_REQUEST, toggle{{pascalCase name}})
+  ])
+}

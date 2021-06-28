@@ -1,0 +1,43 @@
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { {{camelCase name}}Actions } from './{{camelCase name}}.redux'
+import { Banner } from 'layouts/Site/Layouts/Banner'
+import { Row, Col } from 'reactstrap'
+import { mdy } from './../../util/dates'
+import { isEmpty } from './../../util/crud'
+import TableContainer from 'components/Container/TableContainer'
+import { ListItem } from 'components/Information/ListItem'
+
+function {{pascalCase name}}() {
+  useEffect(function() {
+    const { id } = props.match.params
+    props.load{{pascalCase name}}Request({ id })
+    props.load{{pascalCase name}}Success()
+  })
+
+  render() {
+    const { view } = props.{{camelCase name}}
+    return (
+      <Banner>
+        <TableContainer title='{{pascalCase name}}' subtitle='Información del registro' toggle={props.toggle{{pascalCase
+          name}}Request} view={view}>
+          {!isEmpty(view) && (
+          <Row id='view-{{camelCase name}}'>
+            <Col>
+            <ul>
+              <ListItem label='Título' value={view.title} />
+              <ListItem label='Descripción' value={view.description} />
+              <ListItem label='Activo' value={view.active} />
+              <ListItem label='Creado' value={mdy(view.createdAt)} />
+            </ul>
+            </Col>
+          </Row>
+          )}
+        </TableContainer>
+      </Banner>
+    )
+  }
+}
+
+const mapStateToProps = ({ {{camelCase name}} }) => ({ {{camelCase name}} })
+export default connect(mapStateToProps, {{camelCase name}}Actions)({{pascalCase name}}View)
