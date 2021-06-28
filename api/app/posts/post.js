@@ -33,9 +33,9 @@ const schema = new Schema(
 
 // check if is unique
 schema.path('name').validate(async value => {
-  if (await mongoose.models.{{camelCase name}}.exists({ name: value })) {
+  if (await mongoose.models.post.exists({ name: value })) {
     throw new Error('ya existe')
   }
 })
 
-export default mongoose.model('{{camelCase name}}', schema)
+export default mongoose.model('post', schema)

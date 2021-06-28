@@ -1,9 +1,9 @@
-import {{titleCase name}} from './{{camelCase name}}'
+import Post from './post'
 import { Router } from 'express'
 import { green, blue } from './../../helpers/chalk.helper'
 import { ErrorHandler } from '../../helpers/error.helper'
 
-export function {{camelCase name}}sController({{camelCase name}}) {
+export function postsController(post) {
   const router = new Router()
 
   router.post('/', create)
@@ -14,9 +14,9 @@ export function {{camelCase name}}sController({{camelCase name}}) {
 
   async function create(req, res, next) {
     try {
-      blue('{{camelCase name}}s > controller > create')
+      blue('posts > controller > create')
       const newEntry = req.body
-      const result = await {{camelCase name}}.create(newEntry)
+      const result = await post.create(newEntry)
       return res.send(result)
     } catch (error) {
       next(error)
@@ -25,9 +25,9 @@ export function {{camelCase name}}sController({{camelCase name}}) {
 
   async function getAll(req, res, next) {
     try {
-      blue('{{camelCase name}}s > controller > getAll')
+      blue('posts > controller > getAll')
       const query = req.query || {}
-      const result = await {{camelCase name}}.find(query).sort({updatedAt: -1})
+      const result = await post.find(query).sort({updatedAt: -1})
       return res.send(result)
     } catch (error) {
       next(error)
@@ -36,9 +36,9 @@ export function {{camelCase name}}sController({{camelCase name}}) {
 
   async function getOne(req, res, next) {
     try {
-      blue('{{camelCase name}}s > controller > getOne')
+      blue('posts > controller > getOne')
       const { _id } = req.params
-      const result = await {{camelCase name}}.findById(_id)
+      const result = await post.findById(_id)
       return res.send(result)
     } catch (error) {
       next(error)
@@ -47,10 +47,10 @@ export function {{camelCase name}}sController({{camelCase name}}) {
 
   async function update(req, res, next) {
     try {
-      blue('{{camelCase name}}s > controller > update')
+      blue('posts > controller > update')
       const changedEntry = req.body
       const { _id } = req.params
-      const result = await {{camelCase name}}.update({ _id }, changedEntry)
+      const result = await post.update({ _id }, changedEntry)
       return res.send(result)
     } catch (error) {
       next(error)
@@ -59,9 +59,9 @@ export function {{camelCase name}}sController({{camelCase name}}) {
 
   async function remove(req, res, next) {
     try {
-      blue('{{camelCase name}}s > controller > remove')
+      blue('posts > controller > remove')
       const { _id } = req.params
-      const result = await {{camelCase name}}.remove(_id)
+      const result = await post.remove(_id)
       return res.send(result)
     } catch (error) {
       next(error)
@@ -71,4 +71,4 @@ export function {{camelCase name}}sController({{camelCase name}}) {
   return router
 }
 
-export const {{camelCase name}}s = new Router().use('/{{camelCase name}}s', {{camelCase name}}sController({{titleCase name}}))
+export const posts = new Router().use('/posts', postsController(Post))

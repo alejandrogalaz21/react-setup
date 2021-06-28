@@ -10,19 +10,6 @@ const config = plop => {
       }
     ],
     actions: [
-      {
-        type: 'add',
-        path: 'api/app/{{camelCase name}}s/{{camelCase name}}s.controller.js',
-        templateFile: 'plop/plop-templates/controller.hbs',
-        skipIfExists: true
-      },
-      {
-        type: 'add',
-        path: 'api/app/{{camelCase name}}s/{{camelCase name}}.js',
-        templateFile: 'plop/plop-templates/model.hbs',
-        skipIfExists: true
-      },
-
       // Add Redux
       {
         type: 'add',
@@ -32,30 +19,18 @@ const config = plop => {
       },
       // Append Reducer
       {
+        // Action type 'append' injects a template into an existing file
         type: 'append',
         path: 'src/redux/reducers/index.js',
-        pattern: `/* PLOP_INJECT_EXPORT */`,
-        template: `import { {{camelCase name}} } from './../../components/{{pascalCase name}}/{{camelCase name}}.redux'`
+        // Pattern tells plop where in the file to inject the template
+        pattern: `/* PLOP_INJECT_IMPORT */`,
+        template: `import { {{camelCase name}}s } from './../../components/{{pascalCase name}}/{{camelCase name}}.redux'`
       },
       {
         type: 'append',
         path: 'src/redux/reducers/index.js',
         pattern: `/* PLOP_INJECT_EXPORT */`,
         template: `\t{{camelCase name}}s,`
-      },
-      // Add Saga
-      {
-        type: 'add',
-        path: 'src/components/{{pascalCase name}}/{{camelCase name}}.saga.js',
-        templateFile: 'plop/plop-templates/saga.hbs',
-        skipIfExists: true
-      },
-      // Export Saga
-      {
-        type: 'append',
-        path: 'src/redux/sagas/index.js',
-        pattern: `/* PLOP_INJECT_EXPORT */`,
-        template: `export { {{camelCase name}}Sagas } from './../../components/{{pascalCase name}}/{{camelCase name}}.saga'`
       }
     ]
   })
