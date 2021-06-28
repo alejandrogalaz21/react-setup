@@ -19,6 +19,11 @@ export const {{constantCase name}}_REMOVE_REQUEST = '{{constantCase name}}_REMOV
 export const {{constantCase name}}_REMOVE_SUCCESS = '{{constantCase name}}_REMOVE_SUCCESS'
 export const {{constantCase name}}_REMOVE_FAILURE = '{{constantCase name}}_REMOVE_FAILURE'
 
+// open ui types
+export const {{constantCase name}}_EDIT_REQUEST = '{{constantCase name}}_EDIT_REQUEST'
+export const {{constantCase name}}_EDIT_SUCCESS = '{{constantCase name}}_EDIT_SUCCESS'
+export const {{constantCase name}}_EDIT_FAILURE = '{{constantCase name}}_EDIT_FAILURE'
+
 // Action's
 export const {{camelCase name}}getAllRequest = () => ({ type: {{constantCase name}}_GET_ALL_REQUEST })
 export const {{camelCase name}}getAllSuccess = payload => ({
@@ -32,12 +37,11 @@ export const {{camelCase name}}getAllFailure = error => ({
 
 export const {{camelCase name}}CreateRequest = payload => ({ type: {{constantCase name}}_CREATE_REQUEST, payload })
 export const {{camelCase name}}CreateSuccess = payload => ({ type: {{constantCase name}}_CREATE_SUCCESS, payload })
-export const {{camelCase name}}CreateFailure = payload => ({ type: {{constantCase name}}_CREATE_FAILURE, payload })
-
+export const {{camelCase name}}CreateFailure = error => ({ type: {{constantCase name}}_CREATE_FAILURE, error })
 
 export const {{camelCase name}}GetOneRequest = id => ({ type: {{constantCase name}}_GET_ONE_REQUEST, id })
 export const {{camelCase name}}GetOneSuccess = payload => ({ type: {{constantCase name}}_GET_ONE_SUCCESS, payload })
-export const {{camelCase name}}GetOneFailure error => ({ type: {{constantCase name}}_GET_ONE_FAILURE, error })
+export const {{camelCase name}}GetOneFailure = error => ({ type: {{constantCase name}}_GET_ONE_FAILURE, error })
 
 export const {{camelCase name}}UpdateRequest = (id, payload) => ({ type: {{constantCase name}}_UPDATE_REQUEST, id, payload })
 export const {{camelCase name}}UpdateSuccess = payload => ({ type: {{constantCase name}}_UPDATE_SUCCESS, payload })
@@ -47,7 +51,10 @@ export const {{camelCase name}}RemoveRequest = id => ({ type: {{constantCase nam
 export const {{camelCase name}}RemoveSuccess = payload => ({ type: {{constantCase name}}_REMOVE_SUCCESS, payload })
 export const {{camelCase name}}RemoveFailure = error => ({ type: {{constantCase name}}_REMOVE_FAILURE, error })
 
-export const {{camelCase name}}Edit = id => ({ type: {{constantCase name}}_EDIT, id })
+// open ui action's
+export const {{camelCase name}}EditRequest = id => ({ type: {{constantCase name}}_EDIT_REQUEST, id})
+export const {{camelCase name}}EditSuccess = () => ({ type: {{constantCase name}}_EDIT_SUCCESS})
+export const {{camelCase name}}EditFailure = error => ({ type: {{constantCase name}}_EDIT_FAILURE, error })
 
 // Reducer
 const INITIAL_STATE = {
@@ -70,21 +77,26 @@ export function {{camelCase name}}(state = INITIAL_STATE, action) {
         ...state,
         all: [...state.many.filter(s => s.id !== action.payload.id), action.payload],
         one: {},
-        error: null, loading: false,
+        loading: false,
+        error: null, 
       }
+    case {{constantCase name}}_EDIT_SUCCESS:
+      return {...state, loading: false, error: null}  
     case {{constantCase name}}_REMOVE_SUCCESS:
       return { ...state, error: null, loading: false, all: [...state.many.filter(s => s.id !== action.payload.id)] }
     case {{constantCase name}}_CREATE_FAILURE:
-    case {{constantCase name}}_READ_MANY_FAILURE:
+    case {{constantCase name}}_GET_ALL_FAILURE:
     case {{constantCase name}}_GET_ONE_FAILURE:
     case {{constantCase name}}_UPDATE_FAILURE:
     case {{constantCase name}}_REMOVE_FAILURE:
+    case {{constantCase name}}_EDIT_FAILURE:
       return {...state, loading: false, error: action.error }
     case {{constantCase name}}_CREATE_REQUEST:
-    case {{constantCase name}}_READ_MANY_REQUEST:
+    case {{constantCase name}}_GET_ALL_REQUEST:
     case {{constantCase name}}_GET_ONE_REQUEST:
     case {{constantCase name}}_UPDATE_REQUEST:
     case {{constantCase name}}_REMOVE_REQUEST:
+    case {{constantCase name}}_EDIT_REQUEST:
       return {...state, loading: true, error: null }  
     default:
       return state

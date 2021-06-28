@@ -1,0 +1,85 @@
+import axios from 'axios'
+import { push } from 'connected-react-router'
+import { call, put, take, all, takeLatest } from 'redux-saga/effects'
+
+import {
+  {{constantCase name}}_CREATE_REQUEST,
+  {{constantCase name}}_GET_ALL_REQUEST,
+  {{constantCase name}}_GET_ONE_REQUEST,
+  {{constantCase name}}_UPDATE_REQUEST,
+  {{constantCase name}}_EDIT_REQUEST,
+  {{camelCase name}}CreateSuccess,
+  {{camelCase name}}CreateFailure,
+  {{camelCase name}}GetAllSuccess,
+  {{camelCase name}}GetAllFailure,
+  {{camelCase name}}GetOneRequest,
+  {{camelCase name}}GetOneSuccess,
+  {{camelCase name}}GetOneFailure,
+  {{camelCase name}}UpdateSuccess,
+  {{camelCase name}}UpdateFailure,
+  {{camelCase name}}EditSuccess,
+  {{camelCase name}}EditFailure,
+} from './{{camelCase name}}.redux'
+
+export function* {{camelCase name}}CreateSaga({ payload }) {
+  try {
+    // POST REQUEST
+    const { data } = yield call(axios.post, '/api/{{camelCase name}}s', payload)
+    yield put({{camelCase name}}CreateSuccess(data))
+    yield alert('registro guardado')
+    yield put(push('/{{camelCase name}}s'))
+  } catch (error) {
+    yield put({{camelCase name}}CreateFailure('Fail {{camelCase name}}s create request'))
+  }
+}
+
+export function* {{camelCase name}}GetAllSaga() {
+  try {
+    // GET REQUEST
+    const { data } = yield call(axios.get, '/api/{{camelCase name}}s')
+    yield put({{camelCase name}}GetAllSuccess(data))
+  } catch (error) {
+    yield put({{camelCase name}}GetAllFailure('Fail {{camelCase name}}s read many request'))
+  }
+}
+
+export function* {{camelCase name}}GetOneSaga({ id }) {
+  try {
+    // GET REQUEST
+    const { data } = yield call(axios.get, `/api/{{camelCase name}}s/${id}`)
+    yield put({{camelCase name}}GetOneSuccess(data))
+  } catch (error) {
+    yield put({{camelCase name}}GetOneFailure('Fail {{camelCase name}}s read one request'))
+  }
+}
+
+export function* {{camelCase name}}UpdateSaga({ payload }) {
+  try {
+    // POST REQUEST
+    yield call(axios.put, `/api/{{camelCase name}}s/${payload.id}`, payload)
+    yield put({{camelCase name}}UpdateSuccess(payload))
+    yield alert('Registro actualizado')
+    yield put(push('/{{camelCase name}}s'))
+  } catch (error) {
+    yield put({{camelCase name}}UpdateFailure('Fail {{camelCase name}}s update request'))
+  }
+}
+
+export function* {{camelCase name}}EditSaga({ payload }) {
+  try {
+    // OPEN EDIT VIEW
+    yield put({{camelCase name}}EditSuccess())
+  } catch (error) {
+    yield put({{camelCase name}}EditFailure('Fail {{camelCase name}}s update request'))
+  }
+}
+
+export function* {{camelCase name}}Sagas() {
+  yield all([
+    takeLatest({{constantCase name}}_CREATE_REQUEST, {{camelCase name}}CreateSaga),
+    takeLatest({{constantCase name}}_GET_ALL_REQUEST, {{camelCase name}}GetAllSaga),
+    takeLatest({{constantCase name}}_GET_ONE_REQUEST, {{camelCase name}}GetOneSaga),
+    takeLatest({{constantCase name}}_UPDATE_REQUEST, {{camelCase name}}UpdateSaga),
+    takeLatest({{constantCase name}}_EDIT_REQUEST, {{camelCase name}}EditSaga)
+  ])
+}

@@ -24,13 +24,13 @@ const config = plop => {
         path: 'src/redux/reducers/index.js',
         // Pattern tells plop where in the file to inject the template
         pattern: `/* PLOP_INJECT_IMPORT */`,
-        template: `import { {{camelCase name}}s } from './../../components/{{pascalCase name}}/{{camelCase name}}.redux'`
+        template: `import { {{camelCase name}} } from './../../components/{{pascalCase name}}/{{camelCase name}}.redux'`
       },
       {
         type: 'append',
         path: 'src/redux/reducers/index.js',
         pattern: `/* PLOP_INJECT_EXPORT */`,
-        template: `\t{{camelCase name}}s,`
+        template: `\t{{camelCase name}},`
       }
     ]
   })

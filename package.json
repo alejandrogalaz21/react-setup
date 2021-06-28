@@ -8,6 +8,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.20.0",
+    "bootstrap": "^5.0.2",
     "connected-react-router": "^6.9.1",
     "moment": "^2.27.0",
     "plop": "^2.7.4",
@@ -16,6 +17,7 @@
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "reactstrap": "^8.9.0",
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3"
   },
